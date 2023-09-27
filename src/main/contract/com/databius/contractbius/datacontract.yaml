@@ -1,0 +1,41 @@
+dataContractSpecification: 0.9.0
+id: my-data-contract-id
+info:
+  title: My Data Contract
+  version: 0.0.1
+#  description:
+#  owner:
+#  dataProduct:
+#  outputPort:
+#  contact:
+#    name:
+#    url:
+#    email:
+
+schema:
+  type: avro
+  # TODO: include specification schema from avro file (com.databius.shared.SomethingShared.avsc) instead of the long string without linter...
+  specification: |-
+    {
+      "type": "record",
+      "name": "SomethingShared",
+      "namespace": "com.databius.shared",
+      "fields": [
+        {
+          "name": "greeting",
+          "type": "string"
+        }
+      ]
+    }
+  registry:
+    - name: dev
+      type: confluent_schema_registry
+      host: http://localhost:8081
+      subjects:
+        name: com.databius.shared.SomethingShared1-value
+        compatibility: FORWARD_TRANSITIVE
+    - name: prod
+      type: confluent_schema_registry
+      subjects:
+        name: com.databius.shared.SomethingShared2-value
+        compatibility: FORWARD_TRANSITIVE
