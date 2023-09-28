@@ -15,15 +15,13 @@ Waiting all ready
 ## gitops
 [schema-registry-gitops](https://github.com/domnikl/schema-registry-gitops/tree/main)
 ```shell
-docker rm schema-registry-gitops
-docker run --name schema-registry-gitops -v ./src/main/avdl:/avdl \
+docker run --rm --name schema-registry-gitops -v ./src/main/avdl:/avdl \
   domnikl/schema-registry-gitops:1.9.0 plan --registry http://host.docker.internal:8081 \
   /avdl/com/databius/contractbius/.state.yml
 ```
 
 ```shell
-docker rm schema-registry-gitops
-docker run --name schema-registry-gitops -v ./src/main/avdl:/avdl \
+docker run --rm --name schema-registry-gitops -v ./src/main/avdl:/avdl \
   domnikl/schema-registry-gitops:1.9.0 apply --registry http://host.docker.internal:8081 \
   /avdl/com/databius/contractbius/.state.yml
 ```
@@ -37,8 +35,7 @@ yq e '.schema | .registry[].subjects.schema = (. | .specification) | select(.typ
 
 Register to schema registry
 ```shell
-docker rm schema-registry-gitops
-docker run --name schema-registry-gitops -v ./src/main/contract:/contract \
+docker run --rm --name schema-registry-gitops -v ./src/main/contract:/contract \
   domnikl/schema-registry-gitops:1.9.0 apply --registry http://host.docker.internal:8081 \
   /contract/com/databius/contractbius/.state.yaml
 ```
